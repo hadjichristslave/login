@@ -1,6 +1,6 @@
 {
     "name": "slave/login",
-    "description": "",
+    "description": "Login module containing sign in login logout forgot you password",
     "authors": [
         {
             "name": "panagiotis",
@@ -13,7 +13,10 @@
     },
     "autoload": {
         "classmap": [
-            "src/migrations"
+            "src/migrations",
+            "src/models",
+            "src/controllers",
+            "src/views"
         ],
         "psr-0": {
             "Slave\\Login\\": "src/"
