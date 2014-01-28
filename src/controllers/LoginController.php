@@ -46,20 +46,39 @@ class LoginController extends Controller {
 		$this->beforeFilter('csrf', array('on' => 'post'));
 	 	//$this->beforeFilter('auth'); 
 	}
+
 	public function postLogin(){
 		if (Auth::attempt(array('username' => $username, 'password' => $password)))
 		        return Redirect::intended('dashboard');
-		else    return Redirect::to("login");
-		
+		else    return Redirect::to("login");	
 	}
+	public function postSignup(){
+		$input = Input::except('_token');
+		$user  = new User();
+		foreach ($input as $key => $value) {
+			$user->$key = $value;
+		}
+		$flag = Validpack::validateoperation($user);
+		if($flag->passes()){
+				$user->password = Hash::make($user->password);
+				$user->token    = 0;
+                $user->save();
+				return 'login-1';
+		}else
+			return 'login-7';
+		        
+	}
+
 	public function getLogin(){
 		if (Auth::check())
 		    return Redirect::to("login");
 	}
+
 	public function getLogout(){
 		Auth::logout();
 		return Redirect::to("login");
 	}
+
 	public function getForgot(){
 		$count = User::where('email' , '=' , Input::get('email'))->count();
 		if($count<=0)
@@ -73,11 +92,13 @@ class LoginController extends Controller {
 	      $message->to("p.hadjichristodoulou@hotmail.com","Panos")->subject('Password reset email!');
 	   	});
 	}
+
 	public function getToken($token , $email){
 		return View::make('login::reset')
 		->with('token', $token)
 		->with('email', $email);
 	}
+
 	public function postToken(){
 		if(Input::get('password')!= Input::get("rpassword"))
 			return 'login-8';
