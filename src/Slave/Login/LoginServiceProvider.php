@@ -29,6 +29,10 @@ class LoginServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		//
+		$this->app['login'] = $this->app->share(function($app)
+        {
+            return new Login;
+        });
 	}
 
 	/**
@@ -38,7 +42,7 @@ class LoginServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('login');
 	}
 
 }
