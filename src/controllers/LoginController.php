@@ -7,17 +7,11 @@ use Hash;
 use View;
 use Response;
 
-class DbtoolsController extends Controller {
+class LoginController extends Controller {
 
-
-
-
-
-
-
-
-
-
+	public function getIndex(){
+		Loginmod::hellomode();
+	}
 
 
 
