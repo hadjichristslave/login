@@ -1,6 +1,6 @@
 {
     "name": "slave/login",
-    "description": "Login module modified this containing sign in login logout forgot you password",
+    "description": "Login module containing sign in login logout forgot you password",
     "license": "BSD-2-Clause",
     "authors": [
         {
